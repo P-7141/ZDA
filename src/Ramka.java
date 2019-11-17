@@ -8,6 +8,8 @@ public class Ramka extends JFrame {
 
     private static int liczbaKlikniecDowolonego = 0;
     private JButton wcisnietyPoprzednio;
+    private JTextField poleTekstowe;
+    private JLabel etykieta;
 
     public static void main(String[] args) {
         new Ramka();
@@ -32,9 +34,23 @@ public class Ramka extends JFrame {
         c.addActionListener(s2);
         d.addActionListener(s3);
 
+        poleTekstowe = new JTextField("Wpisz tekst");
+        getContentPane().add(poleTekstowe);
+        poleTekstowe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                poleTekstowe.getAccessibleContext();
+            }
+        });
+
+        etykieta = new JLabel("Etykietka");
+        getContentPane().add(etykieta);
+
+
         setLayout(new FlowLayout());
         pack();
         setVisible(true);
+
     }
 
     public class Sluchacz implements ActionListener {
@@ -55,6 +71,10 @@ public class Ramka extends JFrame {
             clickCounter++;
         }
     }
+
 }
 
+
 // doprecyzowanie tekst znika z etykiety z drugiego slajdu ostatnia linijka
+//Napisz program okienkowy zawierający przycisk,
+//etykietę i pole tekstowe.

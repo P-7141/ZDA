@@ -63,7 +63,14 @@ public class Logika {
         for (int i = 0; i < rozmiar; i++) {
             int zachowaneI = i;
             for (int j = 0; j < policzDlugoscSkosuNaPlanszy(zachowaneI); j++) {
+                System.out.println(i+" "+j);
                 if (gracz.equalsIgnoreCase(getUzytkownikZPrzycisku(i, j))) {
+                    if (getUzytkownikZPrzycisku(i,j).equalsIgnoreCase("czerwony")
+                    && getUzytkownikZPrzycisku(i,j).equalsIgnoreCase("niebieski")) {
+                        System.out.println("pusty");
+                    } else {
+                        System.out.println(getUzytkownikZPrzycisku(i, j));
+                    }
                     czyPunktZaSkos = true;
                     i+=1;
                 } else {

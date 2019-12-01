@@ -58,57 +58,91 @@ public class Logika {
     }
 
     public int policzPunktyZaSkosZLewejWDol(String gracz) {
-        boolean czyPunktZaSkos = false;
-        int punktyZaKolumny = 0;
-        for (int i = 0; i < rozmiar; i++) {
-            int zachowaneI = i;
-            for (int j = 0; j < policzDlugoscSkosuNaPlanszy(zachowaneI); j++) {
-                System.out.println(i+" "+j);
-                if (gracz.equalsIgnoreCase(getUzytkownikZPrzycisku(i, j))) {
-                    if (getUzytkownikZPrzycisku(i,j).equalsIgnoreCase("czerwony")
-                    && getUzytkownikZPrzycisku(i,j).equalsIgnoreCase("niebieski")) {
-                        System.out.println("pusty");
-                    } else {
-                        System.out.println(getUzytkownikZPrzycisku(i, j));
-                    }
-                    czyPunktZaSkos = true;
-                    i+=1;
+        boolean czyWszystkieWLinii = false;
+
+        int punktyZaWszystkieLinie = 0;
+        for (int i = rozmiar - 2; i > 0; i--) {
+            int punktyZaLinie = 0;
+            int k = i;
+            for (int j = 0; j < rozmiar - i; ) {
+
+                if (gracz.equalsIgnoreCase(getUzytkownikZPrzycisku(k, j))) {
+                    czyWszystkieWLinii = true;
+                    int punktyWPojedynczejLinii = punktyZaLinie;
+                    punktyZaLinie = punktyWPojedynczejLinii + 1;
                 } else {
-                    czyPunktZaSkos = false;
+                    czyWszystkieWLinii = false;
                     break;
                 }
+                j++;
+                k++;
+
             }
-            if (czyPunktZaSkos) punktyZaKolumny += (rozmiar-zachowaneI);
+            if (czyWszystkieWLinii) punktyZaWszystkieLinie += punktyZaLinie;
+
         }
-        return punktyZaKolumny;
+        return punktyZaWszystkieLinie;
     }
 
-   /* public int policzPunktyZaSkosZPrawejWDol(String gracz) {
-        boolean czyPunktZaSkos = false;
-        int punktyZaKolumny = 0;
-        for (int i = 0; i < rozmiar; i++) {
-            int zachowaneI = i;
-            for (int j = rozmiar-1; j < (rozmiar-policzDlugoscSkosuNaPlanszy(zachowaneI))+1; j--) {
-                if (gracz.equalsIgnoreCase(getUzytkownikZPrzycisku(i, j))) {
-                    czyPunktZaSkos = true;
-                    i+=1;
+    public int policzPunktyZaSkosZPrawejWDol(String gracz) {
+        boolean czyWszystkieWLinii = false;
+
+        int punktyZaWszystkieLinie = 0;
+        for (int j = rozmiar - 2; j > -0.5; j--) {
+            int punktyZaLinie = 0;
+            int k = j;
+            for (int i = 0; i < rozmiar - j; ) {
+                if (gracz.equalsIgnoreCase(getUzytkownikZPrzycisku(i, k))) {
+                    czyWszystkieWLinii = true;
+                    int punktyWPojedynczejLinii = punktyZaLinie;
+                    punktyZaLinie = punktyWPojedynczejLinii + 1;
                 } else {
-                    czyPunktZaSkos = false;
+                    czyWszystkieWLinii = false;
                     break;
                 }
-            }
-            if (czyPunktZaSkos) punktyZaKolumny += (rozmiar-zachowaneI);
-        }
-        return punktyZaKolumny;
-    }*/
+                i++;
+                k++;
 
+            }
+            if (czyWszystkieWLinii) punktyZaWszystkieLinie += punktyZaLinie;
+
+        }
+        return punktyZaWszystkieLinie;
+    }
+
+    /*public int policzPunktyZaSkosZLewejWGore(String gracz) {
+        boolean czyWszystkieWLinii = false;
+
+        int punktyZaWszystkieLinie = 0;
+        for (int i = rozmiar - 2; i > 0; i--) {
+            int punktyZaLinie = 0;
+            int k = i;
+            for (int j = rozmiar-1; j*//*4*//* > rozmiar-i-1*//*2*//*;) {
+                System.out.println(k + " " + j);
+
+                if (gracz.equalsIgnoreCase(getUzytkownikZPrzycisku(k, j))) {
+                    czyWszystkieWLinii = true;
+                    int punktyWPojedynczejLinii = punktyZaLinie;
+                    punktyZaLinie = punktyWPojedynczejLinii+1;
+                } else {
+                    czyWszystkieWLinii = false;
+                    break;
+                }
+                j--;
+                k--;
+
+            } if (czyWszystkieWLinii) punktyZaWszystkieLinie+=punktyZaLinie;
+
+        }
+        return punktyZaWszystkieLinie;
+    }*/
 
     public void sprawdzCzyDodacPunkt() {
         if (czyTuraGraczaNiebieskiego) {
             punktyGraczaCzerwonego = policzPunktyZaPoziom("czerwony") + policzPunktyZaPion("czerwony") +
-            policzPunktyZaSkosZLewejWDol("czerwony");// + policzPunktyZaSkosZPrawejWDol("czerwony");
+                    policzPunktyZaSkosZLewejWDol("czerwony") + policzPunktyZaSkosZPrawejWDol("czerwony");
         } else punktyGraczaNiebieskiego = policzPunktyZaPoziom("niebieski") + policzPunktyZaPion("niebieski") +
-                policzPunktyZaSkosZLewejWDol("niebieski");// + policzPunktyZaSkosZPrawejWDol("niebieski");
+                policzPunktyZaSkosZLewejWDol("niebieski") + policzPunktyZaSkosZPrawejWDol("niebieski");
 
     }
 
@@ -144,44 +178,11 @@ public class Logika {
 
     public String podajWygranego() {
         String wygrany = "remis";
-        if (punktyGraczaCzerwonego==punktyGraczaNiebieskiego) return wygrany;
-        else if (punktyGraczaNiebieskiego>punktyGraczaCzerwonego) {
+        if (punktyGraczaCzerwonego == punktyGraczaNiebieskiego) return wygrany;
+        else if (punktyGraczaNiebieskiego > punktyGraczaCzerwonego) {
             wygrany = "Niebieski";
         } else wygrany = "Czerwony";
         return wygrany;
-    }
-
-    public int policzDlugoscSkosuNaPlanszy(int x) {
-        int dlugosc = 0;
-        switch (x) {
-            case 0:
-                dlugosc = rozmiar;
-                break;
-            case 1:
-                dlugosc = rozmiar-1;
-                break;
-            case 2:
-                dlugosc = rozmiar-2;
-                break;
-            case 3:
-                dlugosc = rozmiar-3;
-                break;
-            case 4:
-                dlugosc = rozmiar-4;
-                break;
-            case 5:
-                dlugosc = rozmiar-5;
-                break;
-            case 6:
-                dlugosc = rozmiar-6;
-                break;
-            case 7:
-                dlugosc = rozmiar-7;
-                break;
-            case 8:
-                dlugosc = rozmiar-8;
-                break;
-        } return dlugosc;
     }
 
     public static void main(String[] args) {

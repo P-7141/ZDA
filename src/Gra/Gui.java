@@ -22,7 +22,7 @@ public class Gui extends JFrame {
     private JButton[][] przyciski;
     private int[][] wcisnietePrzyciski;
 
-    private JFrame rozmiarGryOkno = new JFrame("Wybierz rozmiar planszy do gry");
+    private JFrame rozmiarGryOkno = new JFrame("Wybierz rozmiar planszy do gry 7x7 lub 8x8");
     static int rozmiar;
     public static int liczbaWszystkichZaznaczonychPol = 0;
 
@@ -38,7 +38,6 @@ public class Gui extends JFrame {
 
         rozmiarGryOkno.add(rozmiarPlanszy, CENTER_ALIGNMENT);
         rozmiarGryOkno.add(zatwierdzRozmiarPlanszy);
-        //.setLayout(new BoxLayout(rozmiarPlanszy, BoxLayout.PAGE_AXIS));
         zatwierdzRozmiarPlanszy.setLayout(new BoxLayout(zatwierdzRozmiarPlanszy, BoxLayout.PAGE_AXIS));
 
 
@@ -62,15 +61,14 @@ public class Gui extends JFrame {
 
         panelOpisu.add(punktyITura, TOP_ALIGNMENT);
         punktyITura.setBounds(100, 400, 50, 100);
-        ////punktyITura.setLayout(new BoxLayout(punktyITura, BoxLayout.PAGE_AXIS));
 
         punktyITura.add(punktyNiebieskiego);
         punktyITura.add(punktyCzerwonego);
 
 
-
         zatwierdzRozmiarPlanszy.addActionListener(actionEvent -> {
-            if (rozmiarPlanszy.getText().equals("Wprowadz dlugosc i wysokosc planszy '7' lub '8'")) {
+            if ((!rozmiarPlanszy.getText().equals("7")
+                    && !rozmiarPlanszy.getText().equals("8"))) {
                 JOptionPane.showMessageDialog(panelGry, "Wybierz rozmiar planszy '7' lub '8'", "Rozmiar planszy", JOptionPane.ERROR_MESSAGE);
 
             } else {
@@ -113,8 +111,8 @@ public class Gui extends JFrame {
                                     logika.sprawdzCzyDodacPunkt();
                                     punktyNiebieskiego.setText("Pkt niebieski: " + logika.getPunktyGraczaNiebieskiego());
                                     if (!logika.sprawdzCzyPozostalyPolaDoZaznaczenia()) {
-                                        JOptionPane.showMessageDialog(panelGry, "Wygral gracz: "+
-                                                logika.podajWygranego() , "Koniec gry!", JOptionPane.ERROR_MESSAGE);
+                                        JOptionPane.showMessageDialog(panelGry, "Wygral gracz: " +
+                                                logika.podajWygranego(), "Koniec gry!", JOptionPane.ERROR_MESSAGE);
                                         System.exit(0);
                                     }
                                 } else {
@@ -132,8 +130,8 @@ public class Gui extends JFrame {
                                     logika.sprawdzCzyDodacPunkt();
                                     punktyCzerwonego.setText("Pkt czerwony: " + logika.getPunktyGraczaCzerwonego());
                                     if (!logika.sprawdzCzyPozostalyPolaDoZaznaczenia()) {
-                                        JOptionPane.showMessageDialog(panelGry, "Wygral gracz: "+
-                                                logika.podajWygranego() , "Koniec gry!", JOptionPane.ERROR_MESSAGE);
+                                        JOptionPane.showMessageDialog(panelGry, "Wygral gracz: " +
+                                                logika.podajWygranego(), "Koniec gry!", JOptionPane.ERROR_MESSAGE);
                                         System.exit(0);
                                     }
                                 }

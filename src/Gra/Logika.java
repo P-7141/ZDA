@@ -9,8 +9,9 @@ public class Logika {
 
     private boolean czyTuraGraczaNiebieskiego = false;
 
-    public void setRozmiar(int rozmiar) {
+    public Logika(int rozmiar) {
         this.rozmiar = rozmiar;
+        wcisnietePrzyciski = new String[rozmiar][rozmiar];
     }
 
     public void oznaczPunktGracza(int ktoryWiersz, int ktoraKolumna) {
@@ -138,11 +139,13 @@ public class Logika {
     }*/
 
     public void sprawdzCzyDodacPunkt() {
-        if (czyTuraGraczaNiebieskiego) {
-            punktyGraczaCzerwonego = policzPunktyZaPoziom("czerwony") + policzPunktyZaPion("czerwony") +
-                    policzPunktyZaSkosZLewejWDol("czerwony") + policzPunktyZaSkosZPrawejWDol("czerwony");
-        } else punktyGraczaNiebieskiego = policzPunktyZaPoziom("niebieski") + policzPunktyZaPion("niebieski") +
-                policzPunktyZaSkosZLewejWDol("niebieski") + policzPunktyZaSkosZPrawejWDol("niebieski");
+        String graczCzerwony = "czerwony";
+        String graczNiebieski = "niebieski";
+
+        punktyGraczaCzerwonego = policzPunktyZaPoziom(graczCzerwony) + policzPunktyZaPion(graczCzerwony) +
+                    policzPunktyZaSkosZLewejWDol(graczCzerwony) + policzPunktyZaSkosZPrawejWDol(graczCzerwony);
+        punktyGraczaNiebieskiego = policzPunktyZaPoziom(graczNiebieski) + policzPunktyZaPion(graczNiebieski) +
+                policzPunktyZaSkosZLewejWDol(graczNiebieski) + policzPunktyZaSkosZPrawejWDol(graczNiebieski);
 
     }
 
